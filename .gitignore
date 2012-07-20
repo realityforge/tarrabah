@@ -1,0 +1,8 @@
+/target
+/reports
+/*.iml
+/*.ipr
+/*.iws
+/.idea
+/_buildr.rb
+/bin
