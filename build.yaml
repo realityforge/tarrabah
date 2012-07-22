@@ -1,0 +1,34 @@
+junit: 4.9
+
+repositories:
+  remote:
+   - http://repo.fire.dse.vic.gov.au/content/groups/fisg
+   - http://repo1.maven.org/maven2
+  release_to:
+    url: http://repo.fire.dse.vic.gov.au/content/repositories/releases/
+    username: upload
+    permissions: 0664
+
+artifacts:
+  guava: com.google.guava:guava:jar:11.0.2
+  javax_annotation: javax.annotation:jsr250-api:jar:1.0
+  javax_enterprise: javax.enterprise:cdi-api:jar:1.0-SP4
+  jsr305: com.google.code.findbugs:jsr305:jar:1.3.9
+  javax_el: javax.el:el-api:jar:2.2
+  javax_inject: javax.inject:javax.inject:jar:1
+  javassist: org.javassist:javassist:jar:3.14.0-GA
+
+  javax_interceptors: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:jar:1.0.0.Beta1
+
+  cal10n_api: ch.qos.cal10n:cal10n-api:jar:0.7.2
+  slf4j_api: org.slf4j:slf4j-api:jar:1.6.1
+  slf4j_ext: org.slf4j:slf4j-ext:jar:1.6.1
+  slf4j_simple: org.slf4j:slf4j-simple:jar:1.6.1
+
+  cdi_api: javax.enterprise:cdi-api:jar:1.0-SP4
+  weld_api: org.jboss.weld:weld-api:jar:1.1.Final
+  weld_core: org.jboss.weld:weld-core:jar:1.1.8.Final
+  weld_spi: org.jboss.weld:weld-spi:jar:1.1.Final
+  weld_se_core: org.jboss.weld.se:weld-se-core:jar:1.1.8.Final
+
+
