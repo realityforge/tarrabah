@@ -10,3 +10,10 @@ define 'tarrabah' do
 
   package(:jar)
 end
+
+task 'exec' do
+  cp = (Buildr.project('tarrabah').packages + Buildr.project('tarrabah').compile.dependencies)
+  cp.each {|c| c.invoke}
+  classpath = cp.collect{|c|c.to_s}.join(':')
+  `java -cp #{classpath} org.jboss.weld.environment.se.StartMain`
+end
