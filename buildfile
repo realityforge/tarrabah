@@ -4,7 +4,7 @@ download(artifact(:jsyslog_message_sources) => 'https://github.com/downloads/rea
 desc 'Tarrabah: A small library for receiving and transforming events into information'
 define 'tarrabah' do
   project.version = `git describe --tags --always`.strip
-  project.group = 'tarrabah'
+  project.group = 'org.realityforge.tarrabah'
   compile.options.source = '1.6'
   compile.options.target = '1.6'
   compile.options.lint = 'all'
