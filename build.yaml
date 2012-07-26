@@ -22,6 +22,8 @@ artifacts:
   jsyslog_message: org.realityforge:jsyslog-message:jar:1.0
   jsyslog_message_sources: org.realityforge:jsyslog-message:jar:sources:1.0
 
+  netty: io.netty:netty:jar:3.3.1.Final
+
   javax_interceptors: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:jar:1.0.0.Beta1
 
   cal10n_api: ch.qos.cal10n:cal10n-api:jar:0.7.2
