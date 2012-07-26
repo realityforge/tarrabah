@@ -22,8 +22,8 @@ artifacts:
   json_simple: com.googlecode.json-simple:json-simple:jar:1.1
   joda_time: joda-time:joda-time:jar:1.6
 
-  jsyslog_message: org.realityforge:jsyslog-message:jar:1.0
-  jsyslog_message_sources: org.realityforge:jsyslog-message:jar:sources:1.0
+  jsyslog_message: org.realityforge:jsyslog-message:jar:1.1
+  jsyslog_message_sources: org.realityforge:jsyslog-message:jar:sources:1.1
 
   netty: io.netty:netty:jar:3.5.3.Final
 
