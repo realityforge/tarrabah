@@ -26,7 +26,8 @@ define 'tarrabah' do
                :weld_spi,
                :weld_se_core,
                :jsyslog_message,
-               :netty
+               :netty,
+               :json_simple
 
   package(:jar)
 end

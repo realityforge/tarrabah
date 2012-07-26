@@ -19,6 +19,8 @@ artifacts:
   javax_inject: javax.inject:javax.inject:jar:1
   javassist: org.javassist:javassist:jar:3.14.0-GA
 
+  json_simple: com.googlecode.json-simple:json-simple:jar:1.1
+
   jsyslog_message: org.realityforge:jsyslog-message:jar:1.0
   jsyslog_message_sources: org.realityforge:jsyslog-message:jar:sources:1.0
 
