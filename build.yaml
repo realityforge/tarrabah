@@ -3,6 +3,7 @@ junit: 4.9
 repositories:
   remote:
    - http://repo.fire.dse.vic.gov.au/content/groups/fisg
+   - https://repository.jboss.org/nexus/content/repositories/releases
    - http://repo1.maven.org/maven2
   release_to:
     url: http://repo.fire.dse.vic.gov.au/content/repositories/releases/
@@ -23,9 +24,8 @@ artifacts:
   cal10n_api: ch.qos.cal10n:cal10n-api:jar:0.7.2
   slf4j_api: org.slf4j:slf4j-api:jar:1.6.1
   slf4j_ext: org.slf4j:slf4j-ext:jar:1.6.1
-  slf4j_simple: org.slf4j:slf4j-simple:jar:1.6.1
+  slf4j_jdk14: org.slf4j:slf4j-jdk14:jar:1.6.1
 
-  cdi_api: javax.enterprise:cdi-api:jar:1.0-SP4
   weld_api: org.jboss.weld:weld-api:jar:1.1.Final
   weld_core: org.jboss.weld:weld-core:jar:1.1.8.Final
   weld_spi: org.jboss.weld:weld-spi:jar:1.1.Final
