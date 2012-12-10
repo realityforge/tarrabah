@@ -7,3 +7,4 @@
 /_buildr.rb
 /bin
 /.bundle
+/Gemfile.lock
