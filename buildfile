@@ -28,7 +28,11 @@ define 'tarrabah' do
                :jsyslog_message,
                :netty,
                :joda_time,
-               :gson
+               :gson,
+               :deltaspike_cdictrl_api,
+               :deltaspike_cdictrl_impl,
+               :deltaspike_core_api,
+               :deltaspike_core_impl
 
   package(:jar)
 end

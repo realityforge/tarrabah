@@ -36,4 +36,8 @@ artifacts:
   weld_spi: org.jboss.weld:weld-spi:jar:1.1.Final
   weld_se_core: org.jboss.weld.se:weld-se-core:jar:1.1.8.Final
 
+  deltaspike_core_api: org.apache.deltaspike.core:deltaspike-core-api:jar:0.3-incubating
+  deltaspike_core_impl: org.apache.deltaspike.core:deltaspike-core-impl:jar:0.3-incubating
+  deltaspike_cdictrl_api: org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:jar:0.3-incubating
+  deltaspike_cdictrl_impl: org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:jar:0.3-incubating
 
