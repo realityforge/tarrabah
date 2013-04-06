@@ -5,10 +5,6 @@ repositories:
    - http://repo.fire.dse.vic.gov.au/content/groups/fisg
    - https://repository.jboss.org/nexus/content/repositories/releases
    - http://repo1.maven.org/maven2
-  release_to:
-    url: http://repo.fire.dse.vic.gov.au/content/repositories/releases/
-    username: upload
-    permissions: 0664
 
 artifacts:
   guava: com.google.guava:guava:jar:11.0.2
