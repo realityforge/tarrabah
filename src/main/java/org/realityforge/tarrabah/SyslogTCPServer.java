@@ -30,7 +30,7 @@ public class SyslogTCPServer
   private ServerBootstrap _bootstrap;
 
   @PostConstruct
-  public void postConstruc()
+  public void postConstruct()
   {
     System.out.println( "SyslogTCPServer.postConstruct" );
     final ExecutorService bossThreadPool = Executors.newCachedThreadPool();
