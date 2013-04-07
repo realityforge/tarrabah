@@ -27,7 +27,7 @@ public class SyslogUDPServer
   @PostConstruct
   public void postConstruct()
   {
-    System.out.println( "Starting syslog server..." );
+    System.out.println( "SyslogUDPServer.postConstruct" );
     final ExecutorService executorService = Executors.newCachedThreadPool();
     _bootstrap = new ConnectionlessBootstrap( new NioDatagramChannelFactory( executorService ) );
 
@@ -51,6 +51,7 @@ public class SyslogUDPServer
   @PreDestroy
   public void preDestroy()
   {
+    System.out.println( "SyslogUDPServer.preDestroy" );
     if ( null != _bootstrap )
     {
       _bootstrap.shutdown();

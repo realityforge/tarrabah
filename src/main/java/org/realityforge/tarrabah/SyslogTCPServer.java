@@ -32,7 +32,7 @@ public class SyslogTCPServer
   @PostConstruct
   public void postConstruc()
   {
-    System.out.println( "Starting syslog server..." );
+    System.out.println( "SyslogTCPServer.postConstruct" );
     final ExecutorService bossThreadPool = Executors.newCachedThreadPool();
     final ExecutorService workerThreadPool = Executors.newCachedThreadPool();
 
@@ -55,6 +55,7 @@ public class SyslogTCPServer
   @PreDestroy
   public void preDestroy()
   {
+    System.out.println( "SyslogTCPServer.preDestroy" );
     if ( null != _bootstrap )
     {
       _bootstrap.shutdown();
