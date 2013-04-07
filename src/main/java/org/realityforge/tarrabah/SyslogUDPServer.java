@@ -22,7 +22,7 @@ public class SyslogUDPServer
   @Inject
   private Logger _logger;
 
-  private final int _port = 8080;
+  private int _port = 8080;
 
   @Nullable
   private ConnectionlessBootstrap _bootstrap;
