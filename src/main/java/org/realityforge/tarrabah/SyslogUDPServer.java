@@ -3,6 +3,8 @@ package org.realityforge.tarrabah;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,6 +20,9 @@ import org.jboss.netty.channel.socket.nio.NioDatagramChannelFactory;
 public class SyslogUDPServer
   extends AbstractSyslogServer
 {
+  @Inject
+  private Logger _logger;
+
   private final int _port = 8080;
 
   @Nullable
@@ -26,7 +31,6 @@ public class SyslogUDPServer
   @PostConstruct
   public void postConstruct()
   {
-    System.out.println( "SyslogUDPServer.postConstruct" );
     final ExecutorService executorService = Executors.newCachedThreadPool();
     _bootstrap = new ConnectionlessBootstrap( new NioDatagramChannelFactory( executorService ) );
 
@@ -43,6 +47,10 @@ public class SyslogUDPServer
       }
     } );
 
+    if ( _logger.isLoggable( Level.INFO ) )
+    {
+      _logger.info( "Binding UDP Server to port " + _port );
+    }
     // Bind and start to accept incoming connections.
     _bootstrap.bind( new InetSocketAddress( _port ) );
   }
@@ -50,9 +58,13 @@ public class SyslogUDPServer
   @PreDestroy
   public void preDestroy()
   {
-    System.out.println( "SyslogUDPServer.preDestroy" );
     if ( null != _bootstrap )
     {
+      if ( _logger.isLoggable( Level.INFO ) )
+      {
+        _logger.info( "Shutting down UDP server on port " + _port );
+      }
+
       _bootstrap.shutdown();
       _bootstrap = null;
     }
