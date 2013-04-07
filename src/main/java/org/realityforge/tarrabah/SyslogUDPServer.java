@@ -27,12 +27,13 @@ public class SyslogUDPServer
 
   @Nullable
   private ConnectionlessBootstrap _bootstrap;
+  private ExecutorService _executorService;
 
   @PostConstruct
   public void postConstruct()
   {
-    final ExecutorService executorService = Executors.newCachedThreadPool();
-    _bootstrap = new ConnectionlessBootstrap( new NioDatagramChannelFactory( executorService ) );
+    _executorService = Executors.newCachedThreadPool();
+    _bootstrap = new ConnectionlessBootstrap( new NioDatagramChannelFactory( _executorService ) );
 
     _bootstrap.setOption( "receiveBufferSize", 1048576 );
     _bootstrap.setOption( "receiveBufferSizePredictorFactory", new FixedReceiveBufferSizePredictorFactory( 1024 * 8 ) );
@@ -67,6 +68,11 @@ public class SyslogUDPServer
 
       _bootstrap.shutdown();
       _bootstrap = null;
+    }
+    if ( null != _executorService )
+    {
+      _executorService.shutdown();
+      _executorService = null;
     }
   }
 }
