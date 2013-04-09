@@ -3,6 +3,7 @@ package org.realityforge.tarrabah.cdi.ext.pipeline;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
+import javax.enterprise.inject.spi.Bean;
 
 final class PipelineEntry
 {
@@ -20,13 +21,13 @@ final class PipelineEntry
 
   @SuppressWarnings( "unchecked" )
   @Nonnull
-  final <T> Map<String, BeanEntry<T>> getStore()
+  final <T> Map<Bean<T>, BeanEntry<T>> getStore()
   {
     if ( null == _store )
     {
       _store = new HashMap();
     }
-    return (Map<String, BeanEntry<T>>) _store;
+    return (Map<Bean<T>, BeanEntry<T>>) _store;
   }
 
   final void detach()

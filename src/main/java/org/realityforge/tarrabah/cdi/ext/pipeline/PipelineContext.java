@@ -32,11 +32,10 @@ public class PipelineContext
       throw new ContextNotActiveException();
     }
     final Bean<T> bean = (Bean<T>) contextual;
-    final Map<String, BeanEntry<T>> store = getStore();
-    final String id = getId( bean );
-    if ( store.containsKey( id ) )
+    final Map<Bean<T>, BeanEntry<T>> store = getStore();
+    if ( store.containsKey( bean ) )
     {
-      return store.get( id ).getInstance();
+      return store.get( bean ).getInstance();
     }
     else
     {
@@ -45,15 +44,9 @@ public class PipelineContext
       {
         LOG.log( Level.FINE, "Created bean " + t + " in pipeline context" );
       }
-      store.put( id, new BeanEntry<T>( contextual, creationalContext, t ) );
+      store.put( bean, new BeanEntry<T>( contextual, creationalContext, t ) );
       return t;
     }
-  }
-
-  private <T> String getId( final Bean<T> bean )
-  {
-    return bean.toString();
-    //return bean.getName();
   }
 
   public <T> T get( final Contextual<T> contextual )
@@ -63,11 +56,10 @@ public class PipelineContext
       throw new ContextNotActiveException();
     }
     final Bean<T> bean = (Bean<T>) contextual;
-    final Map<String, BeanEntry<T>> store = getStore();
-    final String id = getId( bean );
-    if ( store.containsKey( id ) )
+    final Map<Bean<T>, BeanEntry<T>> store = getStore();
+    if ( store.containsKey( bean ) )
     {
-      return store.get( id ).getInstance();
+      return store.get( bean ).getInstance();
     }
     else
     {
@@ -89,7 +81,7 @@ public class PipelineContext
     PipelineEntry entry = _pipelines.remove( pipeline );
     if ( null != entry )
     {
-      final Map<String, BeanEntry<Object>> entryMap = entry.getStore();
+      final Map<Bean<Object>, BeanEntry<Object>> entryMap = entry.getStore();
 
       for ( final BeanEntry<Object> beanEntry : entryMap.values() )
       {
@@ -101,7 +93,7 @@ public class PipelineContext
   }
 
   @SuppressWarnings( "unchecked" )
-  private <T> Map<String, BeanEntry<T>> getStore()
+  private <T> Map<Bean<T>, BeanEntry<T>> getStore()
   {
     final Pipeline pipeline = Pipeline.current();
     if ( null != pipeline )
