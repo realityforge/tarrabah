@@ -23,7 +23,7 @@ public class MainApp
 
     final SyslogUDPServer udpServer = BeanProvider.getContextualReference( SyslogUDPServer.class );
 
-    System.out.println( "Active" );
+    System.err.println( "Active" );
 
     /*
     for ( int i = 0; i < 2; i++ )
@@ -44,6 +44,6 @@ public class MainApp
 
     //contextControl.stopContexts();
     cdiContainer.shutdown();
-    System.out.println( "Inactive" );
+    System.err.println( "Inactive" );
   }
 }
