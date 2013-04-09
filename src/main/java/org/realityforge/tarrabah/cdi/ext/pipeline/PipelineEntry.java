@@ -31,7 +31,6 @@ final class PipelineEntry
 
   final void detach()
   {
-    System.out.println( "PipelineEntry.detach" );
     _context.unloadPipeline( _pipeline );
     _store = null;
   }
