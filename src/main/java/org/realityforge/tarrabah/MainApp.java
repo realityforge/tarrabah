@@ -4,6 +4,8 @@ import org.apache.deltaspike.cdise.api.CdiContainer;
 import org.apache.deltaspike.cdise.api.CdiContainerLoader;
 import org.apache.deltaspike.cdise.api.ContextControl;
 import org.apache.deltaspike.core.api.provider.BeanProvider;
+import org.realityforge.tarrabah.cdi.ext.pipeline.Pipeline;
+import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
 public class MainApp
 {

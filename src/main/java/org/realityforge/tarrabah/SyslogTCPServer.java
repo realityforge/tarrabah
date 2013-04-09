@@ -13,6 +13,7 @@ import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.jboss.netty.handler.codec.frame.DelimiterBasedFrameDecoder;
 import org.jboss.netty.handler.codec.frame.Delimiters;
+import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
 @PipelineScoped
 public class SyslogTCPServer

@@ -15,6 +15,7 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.FixedReceiveBufferSizePredictorFactory;
 import org.jboss.netty.channel.socket.nio.NioDatagramChannelFactory;
+import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
 @PipelineScoped
 public class SyslogUDPServer
