@@ -28,6 +28,7 @@ public class SyslogTCPServer
   private int _port = 8080;
   private boolean _nullTerminate;
   private ServerBootstrap _bootstrap;
+  private ExecutorService _executorService;
 
   @PostConstruct
   public void postConstruct()
@@ -68,6 +69,11 @@ public class SyslogTCPServer
 
       _bootstrap.shutdown();
       _bootstrap = null;
+    }
+    if ( null != _executorService )
+    {
+      _executorService.shutdown();
+      _executorService = null;
     }
   }
 }
