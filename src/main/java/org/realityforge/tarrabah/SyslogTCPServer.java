@@ -24,7 +24,8 @@ public class SyslogTCPServer
 {
   @Inject
   private Logger _logger;
-  private final int port = 8080;
+
+  private int _port = 8080;
   private boolean _nullTerminate;
   private ServerBootstrap _bootstrap;
 
@@ -52,7 +53,7 @@ public class SyslogTCPServer
       _logger.info( "Binding TCP Server to port " + _port );
     }
 
-    _bootstrap.bind( new InetSocketAddress( port ) );
+    _bootstrap.bind( new InetSocketAddress( _port ) );
   }
 
   @PreDestroy
