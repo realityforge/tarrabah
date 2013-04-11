@@ -20,7 +20,6 @@ import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
 @PipelineScoped
 public class SyslogTCPServer
-  extends AbstractSyslogServer
 {
   @Inject
   private Logger _logger;
@@ -45,7 +44,7 @@ public class SyslogTCPServer
         throws Exception
       {
         final ChannelBuffer[] delimiter = _nullTerminate ? Delimiters.nulDelimiter() : Delimiters.lineDelimiter();
-        return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), new Handler() );
+        return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), new SyslogHandler() );
       }
     } );
 

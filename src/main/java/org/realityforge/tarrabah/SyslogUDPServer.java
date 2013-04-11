@@ -19,7 +19,6 @@ import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
 @PipelineScoped
 public class SyslogUDPServer
-  extends AbstractSyslogServer
 {
   @Inject
   private Logger _logger;
@@ -45,7 +44,7 @@ public class SyslogUDPServer
       public ChannelPipeline getPipeline()
         throws Exception
       {
-        return Channels.pipeline( new Handler() );
+        return Channels.pipeline( new SyslogHandler() );
       }
     } );
 
