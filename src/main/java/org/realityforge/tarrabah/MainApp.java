@@ -22,6 +22,7 @@ public class MainApp
     Pipeline.activate( new Pipeline( "foo" ) );
 
     final SyslogUDPServer udpServer = BeanProvider.getContextualReference( SyslogUDPServer.class );
+    final SyslogTCPServer tcpServer = BeanProvider.getContextualReference( SyslogTCPServer.class );
 
     System.err.println( "Active" );
 
