@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
@@ -25,8 +26,11 @@ public class SyslogTCPServer
   private Logger _logger;
 
   private int _port = 8080;
+
   private boolean _nullTerminate;
+  @Nullable
   private ServerBootstrap _bootstrap;
+  @Nullable
   private ExecutorService _executorService;
 
   @PostConstruct
