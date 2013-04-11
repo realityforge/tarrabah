@@ -3,8 +3,11 @@ package org.realityforge.tarrabah;
 import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelPipeline;
@@ -19,6 +22,8 @@ import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 public class SyslogTCPServer
   extends AbstractSyslogServer
 {
+  @Inject
+  private Logger _logger;
   private final int port = 8080;
   private boolean _nullTerminate;
   private ServerBootstrap _bootstrap;
@@ -26,7 +31,6 @@ public class SyslogTCPServer
   @PostConstruct
   public void postConstruct()
   {
-    System.out.println( "SyslogTCPServer.postConstruct" );
     final ExecutorService bossThreadPool = Executors.newCachedThreadPool();
     final ExecutorService workerThreadPool = Executors.newCachedThreadPool();
 
@@ -43,15 +47,24 @@ public class SyslogTCPServer
       }
     } );
 
+    if ( _logger.isLoggable( Level.INFO ) )
+    {
+      _logger.info( "Binding TCP Server to port " + _port );
+    }
+
     _bootstrap.bind( new InetSocketAddress( port ) );
   }
 
   @PreDestroy
   public void preDestroy()
   {
-    System.out.println( "SyslogTCPServer.preDestroy" );
     if ( null != _bootstrap )
     {
+      if ( _logger.isLoggable( Level.INFO ) )
+      {
+        _logger.info( "Shutting down TCP server on port " + _port );
+      }
+
       _bootstrap.shutdown();
       _bootstrap = null;
     }
