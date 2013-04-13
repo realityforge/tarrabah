@@ -4,9 +4,7 @@ import javax.inject.Inject;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
-import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
-@PipelineScoped
 public class SyslogUDPServer
   extends AbstractUDPServer
 {
