@@ -23,4 +23,13 @@ public class GelfMessageChunkTest
     assertEquals( chunk.getChunkSequence(), 0 );
     assertEquals( chunk.getChunkCount(), 2 );
   }
+
+  @Test( expectedExceptions = IllegalArgumentException.class,
+         expectedExceptionsMessageRegExp = "Chunk too small to contain header\\." )
+  public void chunkPayloadTooSmall()
+    throws Exception
+  {
+    final byte[] payload = new byte[ 0 ];
+    new GelfMessageChunk( payload );
+  }
 }
