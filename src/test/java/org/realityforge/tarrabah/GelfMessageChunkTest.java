@@ -11,8 +11,8 @@ public class GelfMessageChunkTest
   {
     final byte[] payload = new byte[]
       {
-        (byte)GelfHandler.CHUNKED_BYTE_PREFIX[0],
-        (byte)GelfHandler.CHUNKED_BYTE_PREFIX[1],
+        (byte) GelfHandler.CHUNKED_BYTE_PREFIX[ 0 ],
+        (byte) GelfHandler.CHUNKED_BYTE_PREFIX[ 1 ],
         1, 0, 0, 0, 0, 0, 0, 0, // Message ID 1
         0, 2, //Chunk 1 of 2
         'a' // Data
