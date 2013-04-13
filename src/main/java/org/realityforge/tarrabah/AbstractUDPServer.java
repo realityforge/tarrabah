@@ -23,6 +23,7 @@ public abstract class AbstractUDPServer
 
   @Nullable
   private ConnectionlessBootstrap _bootstrap;
+  @Nullable
   private ExecutorService _executorService;
 
   @PostConstruct
