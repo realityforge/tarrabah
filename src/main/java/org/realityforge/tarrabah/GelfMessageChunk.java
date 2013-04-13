@@ -1,5 +1,7 @@
 package org.realityforge.tarrabah;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -60,6 +62,17 @@ public final class GelfMessageChunk
   public int getChunkCount()
   {
     return _chunk[ CHUNK_COUNT_OFFSET ];
+  }
+
+  public int getPayloadSize()
+  {
+    return _chunk.length - HEADER_SIZE;
+  }
+
+  public void writeData( final OutputStream output )
+    throws IOException
+  {
+    output.write( _chunk, HEADER_SIZE, getPayloadSize() );
   }
 
   @Override

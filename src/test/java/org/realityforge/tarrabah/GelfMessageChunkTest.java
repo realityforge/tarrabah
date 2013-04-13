@@ -1,5 +1,6 @@
 package org.realityforge.tarrabah;
 
+import java.io.ByteArrayOutputStream;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
@@ -22,6 +23,14 @@ public class GelfMessageChunkTest
     assertEquals( chunk.getMessageID().longValue(), 1L );
     assertEquals( chunk.getChunkSequence(), 0 );
     assertEquals( chunk.getChunkCount(), 2 );
+    assertEquals( chunk.getPayloadSize(), 1 );
+
+    final ByteArrayOutputStream output = new ByteArrayOutputStream();
+    chunk.writeData( output );
+    final byte[] bytes = output.toByteArray();
+
+    assertEquals( bytes.length, 1 );
+    assertEquals( bytes[0], 'a' );
   }
 
   @Test( expectedExceptions = IllegalArgumentException.class,
