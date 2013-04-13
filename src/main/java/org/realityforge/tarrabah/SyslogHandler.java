@@ -23,12 +23,10 @@ import org.realityforge.jsyslog.message.StructuredDataParameter;
 import org.realityforge.jsyslog.message.SyslogMessage;
 
 public final class SyslogHandler
-  extends SimpleChannelHandler
+  extends BaseInputHandler
 {
   @Inject
   private Logger _logger;
-
-  private boolean _dnsLookup;
 
   @Override
   public void messageReceived( final ChannelHandlerContext context,
@@ -65,29 +63,6 @@ public final class SyslogHandler
     mergeSyslogFields( message, object );
     final Gson gson = new GsonBuilder().create();
     System.out.println( "Message: " + gson.toJson( object ) );
-  }
-
-  private JsonObject createBaseMessage( final InetSocketAddress remoteAddress, final String source )
-  {
-    final String hostName;
-    if ( _dnsLookup )
-    {
-      hostName = remoteAddress.getAddress().getCanonicalHostName();
-    }
-    else
-    {
-      hostName = remoteAddress.getHostName();
-    }
-
-    final long currentTime = System.currentTimeMillis();
-
-
-    final JsonObject object = new JsonObject();
-    object.addProperty( "@source", source );
-    object.addProperty( "@receive_host", hostName );
-    object.addProperty( "@receive_port", remoteAddress.getPort() );
-    object.addProperty( "@receive_time", currentTime );
-    return object;
   }
 
   private void mergeSyslogFields( final SyslogMessage syslogMessage, final JsonObject object )
