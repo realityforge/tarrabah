@@ -10,12 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import org.jboss.netty.bootstrap.ConnectionlessBootstrap;
-import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.FixedReceiveBufferSizePredictorFactory;
 import org.jboss.netty.channel.socket.nio.NioDatagramChannelFactory;
-import org.realityforge.tarrabah.cdi.ext.pipeline.PipelineScoped;
 
 public abstract class AbstractUDPServer
 {
