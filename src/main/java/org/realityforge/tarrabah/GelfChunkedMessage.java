@@ -1,9 +1,7 @@
 package org.realityforge.tarrabah;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import javax.annotation.Nonnull;
 
 /**
@@ -80,7 +78,7 @@ public class GelfChunkedMessage
     return System.currentTimeMillis();
   }
 
-  public InputStream toInputStream()
+  public byte[] toPayload()
   {
     if ( !isComplete() )
     {
@@ -105,7 +103,7 @@ public class GelfChunkedMessage
         throw new IllegalStateException( "Unexpected exception", ioe );
       }
     }
-    return new ByteArrayInputStream( output.toByteArray() );
+    return output.toByteArray();
   }
 
   @Override

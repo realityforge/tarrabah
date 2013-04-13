@@ -41,13 +41,9 @@ public class GelfChunkedMessageTest
     assertEquals( message.isComplete(), true );
     assertEquals( message.getLastUpdateTime(), 3 );
 
-    final InputStream stream = message.toInputStream();
-    assertNotNull( stream );
-    final int available = stream.available();
-    final byte[] data = new byte[ available ];
-    final int read = stream.read( data );
+    final byte[] data = message.toPayload();
 
-    assertEquals( read, 3 );
+    assertEquals( data.length, 3 );
     assertEquals( data[ 0 ], 'a' );
     assertEquals( data[ 1 ], 'b' );
     assertEquals( data[ 2 ], 'c' );
