@@ -34,8 +34,9 @@ public abstract class AbstractUDPServer
     _executorService = Executors.newCachedThreadPool();
     _bootstrap = new ConnectionlessBootstrap( new NioDatagramChannelFactory( _executorService ) );
 
-    _bootstrap.setOption( "receiveBufferSize", 1048576 );
-    _bootstrap.setOption( "receiveBufferSizePredictorFactory", new FixedReceiveBufferSizePredictorFactory( 1024 * 8 ) );
+    final int bufferSize = 1024 * 8;
+    _bootstrap.setOption( "receiveBufferSize", bufferSize );
+    _bootstrap.setOption( "receiveBufferSizePredictorFactory", new FixedReceiveBufferSizePredictorFactory( bufferSize ) );
 
     // Set up the pipeline factory.
     _bootstrap.setPipelineFactory( newPipelineFactory() );
