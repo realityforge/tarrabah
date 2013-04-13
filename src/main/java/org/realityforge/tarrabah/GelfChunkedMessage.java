@@ -1,7 +1,6 @@
 package org.realityforge.tarrabah;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Representation of a chunked Gelf message.
