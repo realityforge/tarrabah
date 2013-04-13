@@ -32,13 +32,11 @@ public class GelfHandler
                                final MessageEvent e )
     throws Exception
   {
-    //final InetSocketAddress remoteAddress = (InetSocketAddress) e.getRemoteAddress();
     final ChannelBuffer buffer = (ChannelBuffer) e.getMessage();
 
     final byte[] readable = new byte[ buffer.readableBytes() ];
     buffer.toByteBuffer().get( readable, buffer.readerIndex(), buffer.readableBytes() );
 
-    //final SocketAddress localAddress = context.getChannel().getLocalAddress();
     if ( readable.length > 2 &&
          ZLIP_BYTE_PREFIX[ 0 ] == readable[ 0 ] &&
          ZLIP_BYTE_PREFIX[ 1 ] == readable[ 1 ] )
