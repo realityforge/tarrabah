@@ -1,5 +1,6 @@
 package org.realityforge.tarrabah;
 
+import javax.inject.Inject;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
@@ -13,6 +14,8 @@ public class SyslogTCPServer
   extends AbstractTCPServer
 {
   private boolean _nullTerminate;
+  @Inject
+  private SyslogHandler _syslogHandler;
 
   protected ChannelPipelineFactory newPipelineFactory()
   {
@@ -22,7 +25,8 @@ public class SyslogTCPServer
         throws Exception
       {
         final ChannelBuffer[] delimiter = _nullTerminate ? Delimiters.nulDelimiter() : Delimiters.lineDelimiter();
-        return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), new SyslogHandler() );
+        _syslogHandler = new SyslogHandler();
+        return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), _syslogHandler );
       }
     };
   }
