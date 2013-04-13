@@ -1,5 +1,9 @@
 package org.realityforge.tarrabah;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.annotation.Nonnull;
 
 /**
@@ -74,6 +78,34 @@ public class GelfChunkedMessage
   protected long currentTime()
   {
     return System.currentTimeMillis();
+  }
+
+  public InputStream toInputStream()
+  {
+    if ( !isComplete() )
+    {
+      throw new IllegalStateException( "toInputStream() invoked on incomplete message" );
+    }
+    //This is incredibly inefficient. Should just scatter collect byte arrays with a
+    // InputStream fascade.
+    int dataSize = 0;
+    for ( final GelfMessageChunk chunk : _chunks )
+    {
+      dataSize += chunk.getPayloadSize();
+    }
+    final ByteArrayOutputStream output = new ByteArrayOutputStream(dataSize);
+    for ( final GelfMessageChunk chunk : _chunks )
+    {
+      try
+      {
+        chunk.writeData( output );
+      }
+      catch ( final IOException ioe )
+      {
+        throw new IllegalStateException( "Unexpected exception", ioe );
+      }
+    }
+    return new ByteArrayInputStream( output.toByteArray() );
   }
 
   @Override

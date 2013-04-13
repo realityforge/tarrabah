@@ -1,5 +1,6 @@
 package org.realityforge.tarrabah;
 
+import java.io.InputStream;
 import javax.annotation.Nonnull;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,6 +40,17 @@ public class GelfChunkedMessageTest
     assertEquals( message.getReceivedChunksCount(), 3 );
     assertEquals( message.isComplete(), true );
     assertEquals( message.getLastUpdateTime(), 3 );
+
+    final InputStream stream = message.toInputStream();
+    assertNotNull( stream );
+    final int available = stream.available();
+    final byte[] data = new byte[ available ];
+    final int read = stream.read( data );
+
+    assertEquals( read, 3 );
+    assertEquals( data[ 0 ], 'a' );
+    assertEquals( data[ 1 ], 'b' );
+    assertEquals( data[ 2 ], 'c' );
   }
 
   @Test( expectedExceptions = IllegalArgumentException.class,
