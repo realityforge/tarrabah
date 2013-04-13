@@ -81,6 +81,6 @@ public class GelfHandler
   public void exceptionCaught( final ChannelHandlerContext context, final ExceptionEvent e )
     throws Exception
   {
-    _logger.log( Level.WARNING, "Problem receiving gelf packet.", e.getCause() );
+    _logger.log( Level.WARNING, "Problem handling gelf packet.", e.getCause() );
   }
 }
