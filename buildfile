@@ -35,5 +35,7 @@ define 'tarrabah' do
                :deltaspike_core_api,
                :deltaspike_core_impl
 
+  test.using :testng
+
   package(:jar)
 end
