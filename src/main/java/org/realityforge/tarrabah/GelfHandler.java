@@ -20,6 +20,10 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 public class GelfHandler
   extends SimpleChannelHandler
 {
+  static final short[] CHUNKED_BYTE_PREFIX = new short[]{ 0x1E, 0x0F };
+  private static final short[] ZLIP_BYTE_PREFIX = new short[]{ 0x78, 0x9C };
+  private static final short[] GZIP_BYTE_PREFIX = new short[]{ 0x1F, 0x8B };
+
   @Inject
   private Logger _logger;
 
@@ -35,17 +39,23 @@ public class GelfHandler
     buffer.toByteBuffer().get( readable, buffer.readerIndex(), buffer.readableBytes() );
 
     //final SocketAddress localAddress = context.getChannel().getLocalAddress();
-    if ( readable.length > 2 && 0x78 == readable[ 0 ] && 0x9C == readable[ 1 ] )
+    if ( readable.length > 2 &&
+         ZLIP_BYTE_PREFIX[ 0 ] == readable[ 0 ] &&
+         ZLIP_BYTE_PREFIX[ 1 ] == readable[ 1 ] )
     {
       // ZLIB'd
       processJsonMessage( new DeflaterInputStream( new ByteArrayInputStream( readable ) ) );
     }
-    else if ( readable.length > 2 && 0x1F == readable[ 0 ] && 0x8B == readable[ 1 ] )
+    else if ( readable.length > 2 &&
+              GZIP_BYTE_PREFIX[ 0 ] == readable[ 0 ] &&
+              GZIP_BYTE_PREFIX[ 1 ] == readable[ 1 ] )
     {
       //GZIP'd
       processJsonMessage( new GZIPInputStream( new ByteArrayInputStream( readable ) ) );
     }
-    else if ( readable.length > 2 && 0x1E == readable[ 0 ] && 0x0F == readable[ 1 ] )
+    else if ( readable.length > 2 &&
+              CHUNKED_BYTE_PREFIX[ 0 ] == readable[ 0 ] &&
+              CHUNKED_BYTE_PREFIX[ 1 ] == readable[ 1 ] )
     {
       //Chunked
     }
