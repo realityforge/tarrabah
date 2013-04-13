@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -17,6 +18,7 @@ import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelHandler;
 
+@Dependent
 public class GelfHandler
   extends SimpleChannelHandler
 {
