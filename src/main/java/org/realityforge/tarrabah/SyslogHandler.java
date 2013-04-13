@@ -7,6 +7,7 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -135,7 +136,15 @@ public final class SyslogHandler
     final Map<String, List<StructuredDataParameter>> structuredData = syslogMessage.getStructuredData();
     if ( null != structuredData )
     {
-      //TODO: Insert injection of structuredData here...
+      for ( final Entry<String, List<StructuredDataParameter>> entry : structuredData.entrySet() )
+      {
+        final JsonObject value = new JsonObject();
+        for ( final StructuredDataParameter parameter : entry.getValue() )
+        {
+          value.addProperty( parameter.getName(), parameter.getValue() );
+        }
+        object.add( "_" + entry.getKey(), value );
+      }
     }
   }
 
