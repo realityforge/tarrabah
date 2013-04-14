@@ -23,7 +23,6 @@ public class SyslogTCPServer
         throws Exception
       {
         final ChannelBuffer[] delimiter = _nullTerminate ? Delimiters.nulDelimiter() : Delimiters.lineDelimiter();
-        _syslogHandler = new SyslogHandler();
         return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), _handler );
       }
     };
