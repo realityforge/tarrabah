@@ -18,7 +18,6 @@ public class SyslogUDPServer
       public ChannelPipeline getPipeline()
         throws Exception
       {
-        _syslogHandler = new SyslogHandler();
         return Channels.pipeline( _syslogHandler );
       }
     };
