@@ -37,5 +37,10 @@ define 'tarrabah' do
 
   test.using :testng
 
+  # Ugly hack to ensure the beans.xml is included in same path as implementing classes
+  test.compile do
+    cp_r Dir["#{_(:target, :main, :resources)}/*"], _(:target, :main, :classes)
+  end
+
   package(:jar)
 end
