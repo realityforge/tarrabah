@@ -2,7 +2,6 @@ package org.realityforge.tarrabah;
 
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,7 +38,7 @@ public final class SyslogHandler
     final byte[] readable = new byte[ buffer.readableBytes() ];
     buffer.toByteBuffer().get( readable, buffer.readerIndex(), buffer.readableBytes() );
 
-    final SocketAddress localAddress = context.getChannel().getLocalAddress();
+    final InetSocketAddress localAddress = (InetSocketAddress) context.getChannel().getLocalAddress();
     final String rawMessage = new String( readable );
 
     final JsonObject object = generateJsonMessage( remoteAddress, localAddress, rawMessage );
@@ -56,11 +55,11 @@ public final class SyslogHandler
 
   @Nonnull
   final JsonObject generateJsonMessage( @Nonnull final InetSocketAddress remoteAddress,
-                                        @Nonnull final SocketAddress localAddress,
+                                        @Nonnull final InetSocketAddress localAddress,
                                         @Nonnull final String rawMessage )
   {
     final SyslogMessage message = parseSyslogMessage( rawMessage );
-    final String source = "syslog:" + localAddress;
+    final String source = "syslog:" + localAddress.getAddress().getHostAddress() + ":" + localAddress.getPort();
 
     final JsonObject object = createBaseMessage( remoteAddress, source );
     mergeSyslogFields( message, object );
