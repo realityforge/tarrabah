@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -53,9 +54,10 @@ public final class SyslogHandler
     _logger.log( Level.WARNING, "Problem handling syslog packet.", e.getCause() );
   }
 
-  final JsonObject generateJsonMessage( final InetSocketAddress remoteAddress,
-                                        final SocketAddress localAddress,
-                                        final String rawMessage )
+  @Nonnull
+  final JsonObject generateJsonMessage( @Nonnull final InetSocketAddress remoteAddress,
+                                        @Nonnull final SocketAddress localAddress,
+                                        @Nonnull final String rawMessage )
   {
     final SyslogMessage message = parseSyslogMessage( rawMessage );
     final String source = "syslog:" + localAddress;
@@ -65,7 +67,8 @@ public final class SyslogHandler
     return object;
   }
 
-  private void mergeSyslogFields( final SyslogMessage syslogMessage, final JsonObject object )
+  private void mergeSyslogFields( @Nonnull final SyslogMessage syslogMessage,
+                                  @Nonnull final JsonObject object )
   {
     final String hostname = syslogMessage.getHostname();
     if ( null != hostname )
@@ -123,7 +126,7 @@ public final class SyslogHandler
     }
   }
 
-  private SyslogMessage parseSyslogMessage( final String rawMessage )
+  private SyslogMessage parseSyslogMessage( @Nonnull final String rawMessage )
   {
     try
     {
