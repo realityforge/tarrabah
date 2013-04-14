@@ -111,7 +111,7 @@ public class GelfHandler
   }
 
   @Nonnull
-  final JsonObject processJsonMessage( @Nonnull final InputStream input )
+  private JsonObject processJsonMessage( @Nonnull final InputStream input )
   {
     final JsonParser parser = new JsonParser();
     final JsonElement element = parser.parse( new InputStreamReader( input ) );
