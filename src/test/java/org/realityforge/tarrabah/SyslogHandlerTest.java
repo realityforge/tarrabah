@@ -3,11 +3,10 @@ package org.realityforge.tarrabah;
 import com.google.gson.JsonObject;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import javax.inject.Inject;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 import static org.realityforge.tarrabah.JsonTestUtil.*;
+import static org.testng.Assert.*;
 
 public class SyslogHandlerTest
   extends AbstractContainerTest
