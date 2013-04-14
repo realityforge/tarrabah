@@ -36,6 +36,7 @@ public class BaseInputHandlerTest
     throws Exception
   {
     final InetSocketAddress remoteAddress = new InetSocketAddress( InetAddress.getLocalHost(), 2002 );
+    _handler.setDnsLookup( true );
     final JsonObject message = _handler.createBaseMessage( remoteAddress, "X" );
 
     assertEquals( JsonTestUtil.getAsString( message, "@receive_host" ),
