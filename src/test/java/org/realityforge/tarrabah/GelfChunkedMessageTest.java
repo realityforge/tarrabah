@@ -1,6 +1,5 @@
 package org.realityforge.tarrabah;
 
-import java.io.InputStream;
 import javax.annotation.Nonnull;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,7 +19,7 @@ public class GelfChunkedMessageTest
   public void basicWorkflow()
     throws Exception
   {
-    final GelfMessageChunk initialChunk = newChunk( 1, 0, 3, 'a' );
+    final GelfMessageChunk initialChunk = GelfMessageTestUtil.newChunk( 1, 0, 3, "a" );
     final GelfChunkedMessage message = new TestGelfChunkedMessage( initialChunk );
 
     assertEquals( message.getReceivedChunksCount(), 1 );
@@ -28,14 +27,14 @@ public class GelfChunkedMessageTest
     assertEquals( message.getLastUpdateTime(), 1 );
     assertEquals( message.getMessageID(), initialChunk.getMessageID() );
 
-    message.insert( newChunk( 1, 1, 3, 'b' ) );
+    message.insert( GelfMessageTestUtil.newChunk( 1, 1, 3, "b" ) );
 
     assertEquals( message.getReceivedChunksCount(), 2 );
     assertEquals( message.isComplete(), false );
     assertEquals( message.getLastUpdateTime(), 2 );
     assertEquals( message.getMessageID(), initialChunk.getMessageID() );
 
-    message.insert( newChunk( 1, 2, 3, 'c' ) );
+    message.insert( GelfMessageTestUtil.newChunk( 1, 2, 3, "c" ) );
 
     assertEquals( message.getReceivedChunksCount(), 3 );
     assertEquals( message.isComplete(), true );
@@ -54,8 +53,8 @@ public class GelfChunkedMessageTest
   public void invalidChunkSequence()
     throws Exception
   {
-    final GelfChunkedMessage message = new TestGelfChunkedMessage( newChunk( 1, 0, 3, 'a' ) );
-    message.insert( newChunk( 1, 3, 3, 'b' ) );
+    final GelfChunkedMessage message = new TestGelfChunkedMessage( GelfMessageTestUtil.newChunk( 1, 0, 3, "a" ) );
+    message.insert( GelfMessageTestUtil.newChunk( 1, 3, 3, "b" ) );
   }
 
   @Test( expectedExceptions = IllegalArgumentException.class,
@@ -63,8 +62,8 @@ public class GelfChunkedMessageTest
   public void invalidChunkCount()
     throws Exception
   {
-    final GelfChunkedMessage message = new TestGelfChunkedMessage( newChunk( 1, 0, 3, 'a' ) );
-    message.insert( newChunk( 1, 2, 4, 'b' ) );
+    final GelfChunkedMessage message = new TestGelfChunkedMessage( GelfMessageTestUtil.newChunk( 1, 0, 3, "a" ) );
+    message.insert( GelfMessageTestUtil.newChunk( 1, 2, 4, "b" ) );
   }
 
   @Test( expectedExceptions = IllegalArgumentException.class,
@@ -72,8 +71,8 @@ public class GelfChunkedMessageTest
   public void duplicateChunkMessage()
     throws Exception
   {
-    final GelfChunkedMessage message = new TestGelfChunkedMessage( newChunk( 1, 0, 3, 'a' ) );
-    message.insert( newChunk( 1, 0, 3, 'a' ) );
+    final GelfChunkedMessage message = new TestGelfChunkedMessage( GelfMessageTestUtil.newChunk( 1, 0, 3, "a" ) );
+    message.insert( GelfMessageTestUtil.newChunk( 1, 0, 3, "a" ) );
   }
 
   final class TestGelfChunkedMessage
@@ -89,21 +88,5 @@ public class GelfChunkedMessageTest
     {
       return _currentTime++;
     }
-  }
-
-  private GelfMessageChunk newChunk( final int messageID,
-                                     final int chunkSequence,
-                                     final int chunkCount,
-                                     final char data )
-  {
-    final byte[] payload = new byte[]
-      {
-        (byte) GelfHandler.CHUNKED_BYTE_PREFIX[ 0 ],
-        (byte) GelfHandler.CHUNKED_BYTE_PREFIX[ 1 ],
-        (byte) messageID, 0, 0, 0, 0, 0, 0, 0, // Message ID 1
-        (byte) chunkSequence, (byte) chunkCount, //Chunk 1 of 2
-        (byte) data // Data
-      };
-    return new GelfMessageChunk( payload );
   }
 }
