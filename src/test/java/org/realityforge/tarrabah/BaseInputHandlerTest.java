@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import javax.inject.Inject;
 import org.testng.annotations.Test;
+import static org.realityforge.tarrabah.JsonTestUtil.*;
 import static org.testng.Assert.*;
 
 public class BaseInputHandlerTest
@@ -37,21 +38,8 @@ public class BaseInputHandlerTest
     final InetSocketAddress remoteAddress = new InetSocketAddress( InetAddress.getLocalHost(), 2002 );
     final JsonObject message = _handler.createBaseMessage( remoteAddress, "X" );
 
-    assertEquals( getAsString( message, "@receive_host" ), remoteAddress.getAddress().getCanonicalHostName() );
+    assertEquals( JsonTestUtil.getAsString( message, "@receive_host" ),
+                  remoteAddress.getAddress().getCanonicalHostName() );
   }
 
-  protected long getAsLong( final JsonObject message, final String memberName )
-  {
-    return message.getAsJsonPrimitive( memberName ).getAsLong();
-  }
-
-  protected int getAsInt( final JsonObject message, final String memberName )
-  {
-    return message.getAsJsonPrimitive( memberName ).getAsInt();
-  }
-
-  protected String getAsString( final JsonObject message, final String memberName )
-  {
-    return message.getAsJsonPrimitive( memberName ).getAsString();
-  }
 }
