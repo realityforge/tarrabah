@@ -44,7 +44,6 @@ public abstract class AbstractContainerTest
     }
     if ( null != _cdiContainer )
     {
-      _cdiContainer.getContextControl().stopContexts();
       _cdiContainer.shutdown();
       _cdiContainer = null;
     }
