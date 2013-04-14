@@ -1,7 +1,5 @@
 package org.realityforge.tarrabah;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -13,9 +11,9 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
 import org.joda.time.DateTime;
 import org.realityforge.jsyslog.message.Facility;
 import org.realityforge.jsyslog.message.Severity;
@@ -42,7 +40,10 @@ public final class SyslogHandler
 
     final SocketAddress localAddress = context.getChannel().getLocalAddress();
     final String rawMessage = new String( readable );
-    processSyslogMessage( remoteAddress, localAddress, rawMessage );
+
+    final JsonObject object = generateJsonMessage( remoteAddress, localAddress, rawMessage );
+
+    Channels.fireMessageReceived( context, object, remoteAddress );
   }
 
   @Override
@@ -52,17 +53,16 @@ public final class SyslogHandler
     _logger.log( Level.WARNING, "Problem handling syslog packet.", e.getCause() );
   }
 
-  void processSyslogMessage( final InetSocketAddress remoteAddress,
-                             final SocketAddress localAddress,
-                             final String rawMessage )
+  final JsonObject generateJsonMessage( final InetSocketAddress remoteAddress,
+                                        final SocketAddress localAddress,
+                                        final String rawMessage )
   {
     final SyslogMessage message = parseSyslogMessage( rawMessage );
     final String source = "syslog:" + localAddress;
 
     final JsonObject object = createBaseMessage( remoteAddress, source );
     mergeSyslogFields( message, object );
-    final Gson gson = new GsonBuilder().create();
-    System.out.println( "Message: " + gson.toJson( object ) );
+    return object;
   }
 
   private void mergeSyslogFields( final SyslogMessage syslogMessage, final JsonObject object )
