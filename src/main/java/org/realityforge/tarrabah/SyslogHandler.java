@@ -49,7 +49,7 @@ public final class SyslogHandler
   public void exceptionCaught( final ChannelHandlerContext context, final ExceptionEvent e )
     throws Exception
   {
-    _logger.log( Level.WARNING, "Problem receiving syslog packet.", e.getCause() );
+    _logger.log( Level.WARNING, "Problem handling syslog packet.", e.getCause() );
   }
 
   void processSyslogMessage( final InetSocketAddress remoteAddress,
