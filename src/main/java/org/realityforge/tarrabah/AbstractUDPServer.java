@@ -20,6 +20,7 @@ public abstract class AbstractUDPServer
   private Logger _logger;
 
   private int _port = 8080;
+  private int _bufferSize = 1024 * 8;
 
   @Nullable
   private ConnectionlessBootstrap _bootstrap;
@@ -32,9 +33,8 @@ public abstract class AbstractUDPServer
     _executorService = Executors.newCachedThreadPool();
     _bootstrap = new ConnectionlessBootstrap( new NioDatagramChannelFactory( _executorService ) );
 
-    final int bufferSize = 1024 * 8;
-    _bootstrap.setOption( "receiveBufferSize", bufferSize );
-    _bootstrap.setOption( "receiveBufferSizePredictorFactory", new FixedReceiveBufferSizePredictorFactory( bufferSize ) );
+    _bootstrap.setOption( "receiveBufferSize", _bufferSize );
+    _bootstrap.setOption( "receiveBufferSizePredictorFactory", new FixedReceiveBufferSizePredictorFactory( _bufferSize ) );
 
     // Set up the pipeline factory.
     _bootstrap.setPipelineFactory( newPipelineFactory() );
