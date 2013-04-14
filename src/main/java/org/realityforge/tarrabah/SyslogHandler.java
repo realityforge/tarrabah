@@ -70,7 +70,7 @@ public final class SyslogHandler
     final String hostname = syslogMessage.getHostname();
     if ( null != hostname )
     {
-      object.addProperty( "appName", hostname );
+      object.addProperty( "hostname", hostname );
     }
     final String appName = syslogMessage.getAppName();
     if ( null != appName )
