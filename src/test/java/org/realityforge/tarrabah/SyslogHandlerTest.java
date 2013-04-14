@@ -78,7 +78,7 @@ public class SyslogHandlerTest
     assertTrue( object.has( "severity" ) );
     assertEquals( getAsString( object, "severity" ), "crit" );
     assertTrue( object.has( "timestamp" ) );
-    assertEquals( getAsString( object, "timestamp" ), "2013-10-11T22:14:15.000+11:00" );
+    assertTrue( getAsString( object, "timestamp" ).startsWith( "2013-10-11T22:14:15" ) );
     assertTrue( object.has( "timestamp_epoch" ) );
     assertEquals( getAsString( object, "timestamp_epoch" ), "1381490055" );
   }
