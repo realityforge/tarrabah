@@ -9,6 +9,11 @@ public abstract class BaseInputHandler
 {
   private boolean _dnsLookup;
 
+  protected void setDnsLookup( final boolean dnsLookup )
+  {
+    _dnsLookup = dnsLookup;
+  }
+
   protected final JsonObject createBaseMessage( final InetSocketAddress remoteAddress, final String source )
   {
     final String hostName;
