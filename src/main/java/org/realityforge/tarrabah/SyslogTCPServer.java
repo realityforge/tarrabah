@@ -13,7 +13,7 @@ public class SyslogTCPServer
 {
   private boolean _nullTerminate;
   @Inject
-  private SyslogHandler _syslogHandler;
+  private SyslogHandler _handler;
 
   protected ChannelPipelineFactory newPipelineFactory()
   {
@@ -24,7 +24,7 @@ public class SyslogTCPServer
       {
         final ChannelBuffer[] delimiter = _nullTerminate ? Delimiters.nulDelimiter() : Delimiters.lineDelimiter();
         _syslogHandler = new SyslogHandler();
-        return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), _syslogHandler );
+        return Channels.pipeline( new DelimiterBasedFrameDecoder( 2 * 1024 * 1024, delimiter ), _handler );
       }
     };
   }

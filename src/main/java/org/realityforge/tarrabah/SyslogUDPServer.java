@@ -9,7 +9,7 @@ public class SyslogUDPServer
   extends AbstractUDPServer
 {
   @Inject
-  private SyslogHandler _syslogHandler;
+  private SyslogHandler _handler;
 
   protected ChannelPipelineFactory newPipelineFactory()
   {
@@ -18,7 +18,7 @@ public class SyslogUDPServer
       public ChannelPipeline getPipeline()
         throws Exception
       {
-        return Channels.pipeline( _syslogHandler );
+        return Channels.pipeline( _handler );
       }
     };
   }
