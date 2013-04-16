@@ -3,6 +3,7 @@ package org.realityforge.tarrabah;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +31,18 @@ import org.jboss.netty.channel.SimpleChannelHandler;
 public class GelfHandler
   extends SimpleChannelHandler
 {
+  public static final String[] ALLOWABLE_TOP_LEVEL_FIELDS =
+    {
+      "version",
+      "host",
+      "short_message",
+      "full_message",
+      "timestamp",
+      "level",
+      "facility",
+      "line",
+      "file"
+    };
   static final short[] CHUNKED_BYTE_PREFIX = new short[]{ 0x1E, 0x0F };
   private static final short[] ZLIP_BYTE_PREFIX = new short[]{ 0x78, 0x9C };
   private static final short[] GZIP_BYTE_PREFIX = new short[]{ 0x1F, 0x8B };
@@ -115,14 +128,82 @@ public class GelfHandler
   {
     final JsonParser parser = new JsonParser();
     final JsonElement element = parser.parse( new InputStreamReader( input ) );
-    //if ( !( element instanceof JsonObject ) )
-    //{
-    //  //Error
-    //}
+    if ( !( element instanceof JsonObject ) )
+    {
+      throw new IllegalArgumentException( "Invalid GELF packet is not a JSON element." );
+    }
     final JsonObject object = (JsonObject) element;
-    System.out.println( "object = " + object );
-
+    validateMessage( object );
     return object;
+  }
+
+  private void validateMessage( final JsonObject object )
+  {
+    final String version = getString( object, "version" );
+    if ( null == version || !"1.0".equals( version ) )
+    {
+      throw new IllegalArgumentException( "Expected version 1.0 in GELF message but received " + version );
+    }
+    ensureStringField( object, "host" );
+    ensureStringField( object, "short_message" );
+
+    for ( final Entry<String, JsonElement> entry : object.entrySet() )
+    {
+      final String key = entry.getKey();
+
+      if ( key.startsWith( "_" ) )
+      {
+        if ( key.equals( "_id" ) )
+        {
+          throw new IllegalArgumentException( "Invalid extended field name '" + key + "'" );
+        }
+      }
+      else
+      {
+        boolean found = false;
+        for ( final String field : ALLOWABLE_TOP_LEVEL_FIELDS )
+        {
+          if ( field.equals( key ) )
+          {
+            found = true;
+            break;
+          }
+        }
+        if ( !found )
+        {
+          throw new IllegalArgumentException( "Unexpected top level field received '" + key + "'" );
+        }
+      }
+    }
+  }
+
+  private void ensureStringField( final JsonObject object, final String field )
+  {
+    if ( null == getString( object, field ) )
+    {
+      throw new IllegalArgumentException( "Expected GELF to supply field named " + field );
+    }
+  }
+
+  private void ensureLongField( final JsonObject object, final String field )
+  {
+    if ( null == getLong( object, field ) )
+    {
+      throw new IllegalArgumentException( "Expected GELF to supply field named " + field );
+    }
+  }
+
+  private String getString( final JsonObject object, final String key )
+  {
+    final JsonPrimitive versionAttr = object.getAsJsonPrimitive( key );
+    return null == versionAttr ? null : versionAttr.getAsString();
+  }
+
+
+  private Long getLong( final JsonObject object, final String key )
+  {
+    final JsonPrimitive versionAttr = object.getAsJsonPrimitive( key );
+    return null == versionAttr ? null : versionAttr.getAsLong();
   }
 
   /**
