@@ -1,4 +1,5 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+
 gem 'buildr', '= 1.4.11'
 gem 'braid', '= 0.7.1'
 gem 'maruku', '= 0.6.0'
