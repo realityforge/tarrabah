@@ -6,6 +6,8 @@ download(artifact(:jsyslog_message_sources) => 'http://cloud.github.com/download
 desc 'Tarrabah: A small library for receiving and transforming events into information'
 define 'tarrabah' do
   project.group = 'org.realityforge.tarrabah'
+#  compile.options.source = '1.7'
+#  compile.options.target = '1.7'
   compile.options.source = '1.6'
   compile.options.target = '1.6'
   compile.options.lint = 'all'
@@ -30,6 +32,9 @@ define 'tarrabah' do
                :netty,
                :joda_time,
                :gson,
+               :jackson_annotations,
+               :jackson_core,
+               :jackson_databind,
                :deltaspike_cdictrl_api,
                :deltaspike_cdictrl_impl,
                :deltaspike_core_api,
@@ -43,4 +48,9 @@ define 'tarrabah' do
   end
 
   package(:jar)
+
+  ipr.extra_modules << '../graylog2-server/graylog2-server.iml'
+  ipr.extra_modules << '../gelf4j/gelf4j.iml'
+  ipr.extra_modules << '../logstash/logstash.iml'
+  ipr.extra_modules << '../spydle/spydle.iml'
 end

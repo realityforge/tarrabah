@@ -41,3 +41,6 @@ artifacts:
   deltaspike_cdictrl_api: org.apache.deltaspike.cdictrl:deltaspike-cdictrl-api:jar:0.3-incubating
   deltaspike_cdictrl_impl: org.apache.deltaspike.cdictrl:deltaspike-cdictrl-weld:jar:0.3-incubating
 
+  jackson_annotations: com.fasterxml.jackson.core:jackson-annotations:jar:2.1.4
+  jackson_core: com.fasterxml.jackson.core:jackson-core:jar:2.1.4
+  jackson_databind: com.fasterxml.jackson.core:jackson-databind:jar:2.1.4

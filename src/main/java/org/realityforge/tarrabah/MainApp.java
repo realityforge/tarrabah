@@ -1,5 +1,7 @@
 package org.realityforge.tarrabah;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.BeanManager;
@@ -19,6 +21,8 @@ public class MainApp
     @Inject
     private SyslogTCPServer _s;
 
+    @Inject
+    private GelfUDPServer _gelfUDPServer;
   }
   public static void main( final String[] args )
   {
@@ -45,17 +49,27 @@ public class MainApp
 
     System.err.println( "Active" );
 
-    //for ( int i = 0; i < 2; i++ )
-    //{
-    //  try
-    //  {
-    //    Thread.sleep( 1000 );
-    //  }
-    //  catch ( final InterruptedException ie )
-    //  {
-    //    //ignored
-    //  }
-    //}
+    for ( int i = 0; i < 2000; i++ )
+    {
+      try
+      {
+        Thread.sleep( 1000 );
+      }
+      catch ( final InterruptedException ie )
+      {
+        //ignored
+      }
+    }
+
+    final ObjectMapper mapper = new ObjectMapper();
+    try
+    {
+      mapper.writeValue( System.out, instance._s );
+    }
+    catch ( IOException e )
+    {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+    }
 
     contextControl.stopContext( PipelineScoped.class );
     Pipeline.deactivate();
