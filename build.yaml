@@ -2,7 +2,6 @@ junit: 4.9
 
 repositories:
   remote:
-   - http://repo.fire.dse.vic.gov.au/content/groups/fisg
    - https://repository.jboss.org/nexus/content/repositories/releases
    - http://repo1.maven.org/maven2
 
