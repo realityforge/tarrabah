@@ -1,8 +1,5 @@
 require 'buildr/git_auto_version'
 
-download(artifact(:jsyslog_message) => 'http://cloud.github.com/downloads/realityforge/jsyslog-message/jsyslog-message-1.1.jar')
-download(artifact(:jsyslog_message_sources) => 'http://cloud.github.com/downloads/realityforge/jsyslog-message/jsyslog-message-1.1-sources.jar')
-
 desc 'Tarrabah: A small library for receiving and transforming events into information'
 define 'tarrabah' do
   project.group = 'org.realityforge.tarrabah'
