@@ -6,10 +6,8 @@ download(artifact(:jsyslog_message_sources) => 'http://cloud.github.com/download
 desc 'Tarrabah: A small library for receiving and transforming events into information'
 define 'tarrabah' do
   project.group = 'org.realityforge.tarrabah'
-#  compile.options.source = '1.7'
-#  compile.options.target = '1.7'
-  compile.options.source = '1.6'
-  compile.options.target = '1.6'
+  compile.options.source = '1.7'
+  compile.options.target = '1.7'
   compile.options.lint = 'all'
 
   compile.with :guava,
