@@ -3,6 +3,5 @@
 /*.iml
 /*.ipr
 /*.iws
-/.idea
 /_buildr.rb
 /Gemfile.lock
