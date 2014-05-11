@@ -2,7 +2,6 @@ junit: 4.9
 
 repositories:
   remote:
-   #- https://repository.jboss.org/nexus/content/repositories/releases
    - http://repo1.maven.org/maven2
 
 artifacts:
